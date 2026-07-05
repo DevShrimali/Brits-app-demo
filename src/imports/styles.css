@@ -1,0 +1,151 @@
+/* CSS Variables and Global Styles for Brit Vibe */
+
+* {
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] {
+  --color-bg-base: #1A1717;
+  --color-bg-surface: #2C2828;
+  --color-bg-subtle: #423D3D;
+  --color-bg-brand-tint: #500B0A;
+  --color-brand-primary: #F13C38;
+  --color-brand-hover: #F85350;
+  --color-brand-pressed: #FFADAB;
+  --color-text-primary: #FAF9F9;
+  --color-text-secondary: #C4BFBF;
+  --color-text-placeholder: #7A7373;
+  --color-text-on-brand: #FFFFFF;
+  --color-text-brand: #F85350;
+  --color-border-default: #5C5555;
+  --color-border-strong: #7A7373;
+  --color-border-brand: #8F1613;
+  --color-status-success: #22C55E;
+  --color-status-warning: #F59E0B;
+  --color-status-info: #3B82F6;
+  --color-status-error: #F13C38;
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+[data-theme="light"] {
+  --color-bg-base: #FFFFFF;
+  --color-bg-surface: #FAF9F9;
+  --color-bg-subtle: #F0EEEE;
+  --color-bg-brand-tint: #FFF0F0;
+  --color-brand-primary: #F13C38;
+  --color-brand-hover: #D4201C;
+  --color-brand-pressed: #AE1815;
+  --color-text-primary: #1A1717;
+  --color-text-secondary: #5C5555;
+  --color-text-placeholder: #9E9898;
+  --color-text-on-brand: #FFFFFF;
+  --color-text-brand: #F13C38;
+  --color-border-default: #DDD9D9;
+  --color-border-strong: #C4BFBF;
+  --color-border-brand: #FFADAB;
+  --color-status-success: #22C55E;
+  --color-status-warning: #F59E0B;
+  --color-status-info: #3B82F6;
+  --color-status-error: #F13C38;
+  --shadow: 0 10px 30px rgba(0,0,0,.10);
+}
+
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+.scrl::-webkit-scrollbar {
+  display: none;
+}
+
+.scrl {
+  scrollbar-width: none;
+}
+
+input, textarea, button {
+  font-family: inherit;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-brand-primary) !important;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 16px 50px rgba(241,60,56,.45);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 22px 64px rgba(241,60,56,.65);
+  }
+}
+
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes confetti {
+  0% { transform: translateY(-30px) rotate(0); opacity: 1; }
+  100% { transform: translateY(880px) rotate(720deg); opacity: 0; }
+}
+
+@keyframes pop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slideX {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Layout for screens-only view (no mockup frame) */
+#app-root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background: var(--color-bg-base);
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px; /* Standard web-mobile layout width */
+  min-height: 100vh;
+  position: relative;
+  box-shadow: var(--shadow);
+  border-left: 1px solid var(--color-border-default);
+  border-right: 1px solid var(--color-border-default);
+  background: var(--color-bg-base);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    border-left: none;
+    border-right: none;
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 16px 50px rgba(241,60,56,.45); }
+  50% { transform: scale(1.06); box-shadow: 0 22px 64px rgba(241,60,56,.65); }
+}
+@keyframes sheetUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes confetti {
+  0% { transform: translateY(-30px) rotate(0); opacity: 1; }
+  100% { transform: translateY(880px) rotate(720deg); opacity: 0; }
+}
+@keyframes pop {
+  0% { transform: scale(0); }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+@keyframes slideX { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
