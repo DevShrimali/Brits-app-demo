@@ -988,29 +988,64 @@ export default function App() {
         <div onClick={()=>setExploreFilterOpen(false)} style={{position:'absolute',inset:0,background:'rgba(0,0,0,.5)',zIndex:30,display:'flex',alignItems:'flex-end'}}>
           <div onClick={e=>e.stopPropagation()} style={{width:'100%',background:'var(--color-bg-surface)',borderRadius:'24px 24px 0 0',padding:'22px 22px 28px',animation:'sheetUp .3s ease',maxHeight:'85%',overflowY:'auto'}}>
             <div style={{width:40,height:4,borderRadius:99,background:'var(--color-border-strong)',margin:'0 auto 18px'}}/>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:18}}>
-              <div style={{fontSize:19,fontWeight:800,color:'var(--color-text-primary)'}}>Filters</div>
-              <button onClick={()=>{ setExploreCity('All'); setEvChip('All'); setExploreSort('popular'); setExploreLocSearch(''); }} style={{background:'none',border:'none',color:'var(--color-text-brand)',fontSize:13,fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>Reset</button>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:20}}>
+              <div style={{fontSize:22,fontWeight:800,color:'var(--color-text-primary)',letterSpacing:'-.4px'}}>Filters</div>
+              <button onClick={()=>{ setExploreCity('All'); setEvChip('All'); setExploreSort('popular'); setExploreLocSearch(''); }} style={{background:'none',border:'none',color:'var(--color-brand-primary)',fontSize:15,fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>Reset</button>
             </div>
-            <div style={{fontSize:13,fontWeight:700,color:'var(--color-text-secondary)',marginBottom:10}}>City</div>
-            <div style={{display:'flex',gap:9,flexWrap:'wrap',marginBottom:20}}>
-              {['All','London','Manchester','Birmingham','Leeds','Bristol'].map(c=>(
-                <button key={c} onClick={()=>setExploreCity(c)} style={{...chip(exploreCity===c),fontFamily:'inherit'}}>{c==='All'?'All Cities':c}</button>
+
+            <div style={{fontSize:15,fontWeight:700,color:'var(--color-text-primary)',marginBottom:12}}>Select City</div>
+            <div style={{position:'relative',width:'100%',marginBottom:14}}>
+              <span style={{position:'absolute',left:14,top:'50%',transform:'translateY(-50%)',color:'var(--color-text-placeholder)',display:'flex',alignItems:'center'}}>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"/></svg>
+              </span>
+              <input
+                value={exploreLocSearch}
+                onChange={e=>setExploreLocSearch(e.target.value)}
+                placeholder="Search cities..."
+                style={{
+                  width:'100%',
+                  boxSizing:'border-box',
+                  background:'var(--color-bg-base)',
+                  border:'1px solid var(--color-border-default)',
+                  borderRadius:12,
+                  padding:'12px 14px 12px 42px',
+                  fontSize:14.5,
+                  color:'var(--color-text-primary)',
+                  outline:'none',
+                  fontFamily:'inherit'
+                }}
+              />
+            </div>
+
+            <div style={{display:'flex',gap:10,overflowX:'auto',scrollbarWidth:'none',paddingBottom:4,marginBottom:22,WebkitOverflowScrolling:'touch'}}>
+              {['All','London','Manchester','Birmingham','Leeds','Bristol']
+                .filter(c => c === 'All' || c.toLowerCase().includes(exploreLocSearch.toLowerCase()))
+                .map(c=>(
+                  <button key={c} onClick={()=>setExploreCity(c)} style={{...chip(exploreCity===c),fontFamily:'inherit'}}>{c==='All'?'All Cities':c}</button>
+                ))
+              }
+            </div>
+
+            <div style={{fontSize:15,fontWeight:700,color:'var(--color-text-primary)',marginBottom:12}}>Sort By</div>
+            <div style={{display:'flex',gap:10,flexWrap:'wrap',marginBottom:22}}>
+              {[
+                {id:'popular',label:'🔥 Popularity'},
+                {id:'price-low',label:'💸 Price: Low to High'},
+                {id:'price-high',label:'💰 Price: High to Low'},
+                {id:'date',label:'📅 Date'}
+              ].map(o=>(
+                <button key={o.id} onClick={()=>setExploreSort(o.id)} style={{...chip(exploreSort===o.id),fontFamily:'inherit'}}>{o.label}</button>
               ))}
             </div>
-            <div style={{fontSize:13,fontWeight:700,color:'var(--color-text-secondary)',marginBottom:10}}>Category</div>
-            <div style={{display:'flex',gap:9,flexWrap:'wrap',marginBottom:20}}>
+
+            <div style={{fontSize:15,fontWeight:700,color:'var(--color-text-primary)',marginBottom:12}}>Select Category</div>
+            <div style={{display:'flex',gap:10,flexWrap:'wrap',marginBottom:28}}>
               {EVCHIPS.map(c=>(
                 <button key={c.label} onClick={()=>setEvChip(c.label)} style={{...chip(evChip===c.label),fontFamily:'inherit'}}>{c.emoji} {c.label}</button>
               ))}
             </div>
-            <div style={{fontSize:13,fontWeight:700,color:'var(--color-text-secondary)',marginBottom:10}}>Sort by</div>
-            <div style={{display:'flex',gap:9,flexWrap:'wrap',marginBottom:24}}>
-              {[{id:'popular',label:'🔥 Popularity'},{id:'price-low',label:'💸 Low price'},{id:'price-high',label:'💰 High price'},{id:'date',label:'📅 Date'}].map(o=>(
-                <button key={o.id} onClick={()=>setExploreSort(o.id)} style={{...chip(exploreSort===o.id),fontFamily:'inherit'}}>{o.label}</button>
-              ))}
-            </div>
-            <button onClick={()=>setExploreFilterOpen(false)} style={{width:'100%',background:'var(--color-brand-primary)',color:'#fff',border:'none',borderRadius:15,padding:16,fontSize:16,fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>Show {evList.length} events</button>
+
+            <button onClick={()=>setExploreFilterOpen(false)} style={{width:'100%',background:'var(--color-brand-primary)',color:'#fff',border:'none',borderRadius:16,padding:'16px 20px',fontSize:16,fontWeight:700,cursor:'pointer',fontFamily:'inherit',boxShadow:'0 4px 15px rgba(241,60,56,.15)'}}>Show {evList.length} {evList.length===1?'event':'events'}</button>
           </div>
         </div>
       )}
